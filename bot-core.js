@@ -565,6 +565,9 @@ async function startBot() {
     logger["error"](
       "[startBot] Failed to start the bot: " + _0x1d2845["message"],
     );
+    // Do not leave a dead child process looking healthy to the supervisor.
+    // Exiting lets coreSupervisor restart us with its backoff policy.
+    setTimeout(() => process.exit(1), 1000).unref();
   }
 }
 (process["on"]("uncaughtException", (_0x38be2a) => {

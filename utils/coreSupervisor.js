@@ -35,7 +35,9 @@ function containerLimitMB() {
 const LIMIT_MB = (() => {
   if (Number(process.env.BOT_MAX_MB) > 0) return Number(process.env.BOT_MAX_MB);
   const c = containerLimitMB();
-  return c ? Math.max(256, Math.round(c * 0.7)) : 1400;
+  // Leave headroom for the HTTP server and native modules, but do not restart
+  // a healthy Baileys process too early on small Railway containers.
+  return c ? Math.max(256, Math.round(c * 0.82)) : 1400;
 })();
 
 function rssMB(pid) {
