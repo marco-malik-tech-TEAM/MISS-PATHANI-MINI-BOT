@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>MISS PATHANI MINI BOT • Admin</title>
+<link rel="icon" href="/dp.jpg">
+<style>
+:root{--bg:#07040f;--card:#120a22;--card2:#1a0f33;--line:#3a1f6b;--pri:#a855f7;--pri2:#7c3aed;--txt:#f1e9ff;--mut:#a79bc4;--ok:#22c55e;--bad:#ef4444;--warn:#f59e0b}
+*{box-sizing:border-box}
+html,body{margin:0;background:radial-gradient(1200px 600px at 80% -10%,#2a0f55 0,transparent 60%),var(--bg);color:var(--txt);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+body{min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+.wrap{max-width:1180px;margin:0 auto;padding:18px}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.top img{width:46px;height:46px;border-radius:14px;border:1px solid var(--line);object-fit:cover}
+.top h1{font-size:18px;margin:0;letter-spacing:.5px}
+.top small{color:var(--mut)}
+.grow{flex:1}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 14px;color:#fff;background:linear-gradient(135deg,var(--pri2),var(--pri));font-weight:600}
+button.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+button.danger{background:linear-gradient(135deg,#b91c1c,var(--bad))}
+button.warn{background:linear-gradient(135deg,#b45309,var(--warn))}
+button.sm{padding:6px 10px;font-size:12px;border-radius:9px}
+button:disabled{opacity:.5;cursor:default}
+input{font:inherit;width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:#0c0618;color:var(--txt);outline:none}
+input:focus{border-color:var(--pri)}
+.login{max-width:400px;margin:12vh auto 0;background:var(--card);border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 0 60px #7c3aed33}
+.login h2{margin:0 0 4px}.login p{color:var(--mut);margin:0 0 18px;font-size:14px}
+.login label{display:block;font-size:12px;color:var(--mut);margin:12px 0 6px}
+.err{color:#fca5a5;font-size:13px;min-height:18px;margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}
+.stat{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:16px;padding:14px}
+.stat b{display:block;font-size:26px;margin-top:4px}
+.stat span{color:var(--mut);font-size:12px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin-bottom:16px}
+.panel h3{margin:2px 0 12px;font-size:15px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.row input{max-width:320px}
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:760px}
+th,td{padding:10px 8px;text-align:left;border-bottom:1px solid #2a1650;white-space:nowrap}
+th{color:var(--mut);font-weight:600;font-size:12px}
+.pill{display:inline-block;padding:3px 9px;border-radius:99px;font-size:11px;font-weight:700}
+.p-ok{background:#14532d;color:#86efac}.p-warn{background:#78350f;color:#fcd34d}.p-bad{background:#7f1d1d;color:#fca5a5}.p-mut{background:#2a1650;color:var(--mut)}
+.bars{display:flex;align-items:flex-end;gap:6px;height:110px}
+.bar{flex:1;background:linear-gradient(180deg,var(--pri),var(--pri2));border-radius:6px 6px 0 0;min-height:3px;position:relative}
+.bar i{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-style:normal;font-size:9px;color:var(--mut);white-space:nowrap}
+.log{max-height:280px;overflow:auto;font-size:13px}
+.log div{padding:7px 4px;border-bottom:1px solid #2a1650;display:flex;gap:10px}
+.log time{color:var(--mut);min-width:128px}
+.hidden{display:none}
+.modal{position:fixed;inset:0;background:#000a;display:flex;align-items:center;justify-content:center;padding:18px;z-index:10}
+.modal .box{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;max-width:420px;width:100%}
+.modal .box h3{margin:0 0 8px}.modal p{color:var(--mut);font-size:14px}
+.chk{display:flex;gap:8px;align-items:center;margin:12px 0;font-size:14px}.chk input{width:auto}
+.note{color:var(--mut);font-size:12px;margin-top:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- LOGIN -->
+  <div id="loginView" class="login hidden">
+    <div style="text-align:center;margin-bottom:12px"><img src="/dp.jpg" alt="" style="width:76px;height:76px;border-radius:20px;border:1px solid var(--line)"></div>
+    <h2 style="text-align:center">Admin Panel</h2>
+    <p style="text-align:center">MISS PATHANI MINI BOT • Premium V12</p>
+    <label for="em">Email</label><input id="em" type="email" autocomplete="username" placeholder="admin email">
+    <label for="pw">Password</label><input id="pw" type="password" autocomplete="current-password" placeholder="password">
+    <button id="loginBtn" style="width:100%;margin-top:16px">Login</button>
+    <div class="err" id="loginErr"></div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashView" class="hidden">
+    <div class="top">
+      <img src="/dp.jpg" alt="">
+      <div><h1>MISS PATHANI MINI BOT</h1><small>Admin Panel • Premium V12</small></div>
+      <div class="grow"></div>
+      <button class="ghost sm" id="refreshBtn">↻ Refresh</button>
+      <button class="ghost sm" id="logoutBtn">Logout</button>
+    </div>
+
+    <div class="grid" id="stats"></div>
+
+    <div class="panel">
+      <h3>Last 14 days — page views</h3>
+      <div class="bars" id="bars"></div>
+      <div style="height:22px"></div>
+    </div>
+
+    <div class="panel">
+      <h3>Connected numbers</h3>
+      <div class="row">
+        <input id="search" placeholder="Search a number…">
+        <span class="note" id="count"></span>
+      </div>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Number</th><th>Status</th><th>Source</th><th>First seen</th><th>Last seen</th><th>Linked at</th><th>Requests</th><th>Actions</th></tr></thead>
+          <tbody id="rows"></tbody>
+        </table>
+      </div>
+      <div class="note">“Remove bot” logs the bot out of that WhatsApp account (it disappears from Linked Devices) and deletes its session. “Block” stops that number from pairing again.</div>
+    </div>
+
+    <div class="panel">
+      <h3>Activity log</h3>
+      <div class="log" id="log"></div>
+    </div>
+    <div class="note" id="srv"></div>
+  </div>
+</div>
+
+<!-- CONFIRM MODAL -->
+<div class="modal hidden" id="modal">
+  <div class="box">
+    <h3 id="mTitle"></h3>
+    <p id="mText"></p>
+    <label class="chk" id="mBlockWrap"><input type="checkbox" id="mBlock" checked> Also block this number from pairing again</label>
+    <div class="row" style="justify-content:flex-end;margin:12px 0 0">
+      <button class="ghost" id="mNo">Cancel</button>
+      <button class="danger" id="mYes">Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+let DATA = null, timer = null;
+
+async function api(path, body) {
+  const r = await fetch("/admin/api/" + path, {
+    method: body ? "POST" : "GET",
+    headers: body ? { "Content-Type": "application/json" } : undefined,
+    body: body ? JSON.stringify(body) : undefined,
+    credentials: "same-origin",
+  });
+  const j = await r.json().catch(() => ({}));
+  if (r.status === 401 && path !== "login") { showLogin(); throw new Error("login"); }
+  if (!r.ok) throw new Error(j.error || "Request failed");
+  return j;
+}
+function showLogin() { clearInterval(timer); $("dashView").classList.add("hidden"); $("loginView").classList.remove("hidden"); }
+function showDash() { $("loginView").classList.add("hidden"); $("dashView").classList.remove("hidden"); }
+
+const fmtT = (t) => (t ? new Date(t).toLocaleString() : "—");
+const fmtUp = (s) => { const d = Math.floor(s / 86400), h = Math.floor((s % 86400) / 3600), m = Math.floor((s % 3600) / 60); return (d ? d + "d " : "") + h + "h " + m + "m"; };
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+
+function render() {
+  const d = DATA; if (!d) return;
+  const st = $("stats"); st.textContent = "";
+  const cards = [
+    ["Page views", d.totals.views], ["Unique visitors", d.totals.uniqueVisitors], ["Views today", d.today.views],
+    ["Pair requests today", d.today.pairs], ["Numbers seen", d.totals.numbers], ["Linked", d.totals.linked],
+    ["Running now", d.totals.running], ["Blocked", d.totals.blocked],
+  ];
+  for (const [k, v] of cards) { const c = el("div", "stat"); c.append(el("span", "", k), el("b", "", String(v))); st.append(c); }
+
+  const bars = $("bars"); bars.textContent = "";
+  const max = Math.max(1, ...d.daily.map((x) => x.views));
+  for (const x of d.daily) { const b = el("div", "bar"); b.style.height = Math.max(3, (x.views / max) * 100) + "%"; b.title = x.date + " — " + x.views + " views, " + x.pairs + " pair requests"; b.append(el("i", "", x.date.slice(5))); bars.append(b); }
+
+  const q = $("search").value.replace(/\D/g, "");
+  const list = d.sessions.filter((s) => !q || s.number.includes(q));
+  $("count").textContent = list.length + " of " + d.sessions.length + " numbers";
+  const tb = $("rows"); tb.textContent = "";
+  for (const s of list) {
+    const tr = el("tr");
+    tr.append(el("td", "", "+" + s.number));
+    const stt = el("td");
+    const pill = s.blocked ? ["Blocked", "p-bad"] : s.running ? ["Running", "p-ok"] : s.linked ? ["Linked (offline)", "p-warn"] : ["Not linked", "p-mut"];
+    stt.append(el("span", "pill " + pill[1], pill[0])); tr.append(stt);
+    tr.append(el("td", "", (s.source || "unknown") + " • Bot " + s.engine), el("td", "", fmtT(s.firstSeen)), el("td", "", fmtT(s.lastSeen)), el("td", "", fmtT(s.linkedAt)), el("td", "", String(s.requests)));
+    const act = el("td");
+    const rm = el("button", "danger sm", "Remove bot"); rm.onclick = () => confirmRemove(s); rm.disabled = !s.linked && !s.running;
+    const bl = el("button", (s.blocked ? "ghost" : "warn") + " sm", s.blocked ? "Unblock" : "Block"); bl.style.marginLeft = "6px";
+    bl.onclick = () => doBlock(s);
+    const cp = el("button", "ghost sm", "Copy"); cp.style.marginLeft = "6px"; cp.onclick = () => navigator.clipboard && navigator.clipboard.writeText("+" + s.number);
+    act.append(rm, bl, cp); tr.append(act); tb.append(tr);
+  }
+  if (!list.length) { const tr = el("tr"); const td = el("td", "", "No numbers yet."); td.colSpan = 8; tr.append(td); tb.append(tr); }
+
+  const lg = $("log"); lg.textContent = "";
+  for (const x of d.log) { const r = el("div"); r.append(el("time", "", fmtT(x.t)), el("span", "", "[" + x.type + "] " + x.text)); lg.append(r); }
+  $("srv").textContent = "Server uptime " + fmtUp(d.server.uptime) + " • Memory " + d.server.memoryMB + " MB • Node " + d.server.node;
+}
+
+async function load() { try { DATA = await api("overview"); showDash(); render(); } catch (e) { if (e.message !== "login") console.error(e); } }
+
+function ask(title, text, withBlock) {
+  return new Promise((res) => {
+    $("mTitle").textContent = title; $("mText").textContent = text;
+    $("mBlockWrap").classList.toggle("hidden", !withBlock); $("mBlock").checked = true;
+    $("modal").classList.remove("hidden");
+    const done = (v) => { $("modal").classList.add("hidden"); res(v); };
+    $("mYes").onclick = () => done({ ok: true, block: $("mBlock").checked }); $("mNo").onclick = () => done({ ok: false });
+  });
+}
+async function confirmRemove(s) {
+  const r = await ask("Remove bot from +" + s.number + "?", "The bot will be logged out of this WhatsApp account and its session deleted. Use this when the bot is being misused.", true);
+  if (!r.ok) return;
+  try { await api("remove", { number: s.number, engine: s.engine, block: r.block, reason: "Misuse (admin)" }); await load(); } catch (e) { alert(e.message); }
+}
+async function doBlock(s) {
+  try { await api("block", { number: s.number, blocked: !s.blocked, reason: "Blocked by admin" }); await load(); } catch (e) { alert(e.message); }
+}
+
+$("loginBtn").onclick = async () => {
+  $("loginErr").textContent = "";
+  try { await api("login", { email: $("em").value, password: $("pw").value }); $("pw").value = ""; await load(); timer = setInterval(load, 15000); }
+  catch (e) { $("loginErr").textContent = e.message; }
+};
+$("pw").addEventListener("keydown", (e) => { if (e.key === "Enter") $("loginBtn").click(); });
+$("logoutBtn").onclick = async () => { try { await api("logout", {}); } catch (_) {} showLogin(); };
+$("refreshBtn").onclick = load;
+$("search").addEventListener("input", render);
+
+(async () => { try { await api("overview"); await load(); timer = setInterval(load, 15000); } catch (_) { showLogin(); } })();
+</script>
+</body>
+</html>
