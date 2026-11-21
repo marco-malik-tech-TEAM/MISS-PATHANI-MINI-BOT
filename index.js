@@ -30,6 +30,13 @@ const { AUTH } = require('./utils/paths');
 const web = require('./web-pairing');
 
 let coreStarted = false;
+// Railway normally injects PORT. Keep compatibility with the existing POTR
+// variable shown in older deployments, and use Railway's configured port when
+// the injected variable is unavailable.
+const publicPort = Number(process.env.PORT || process.env.POTR || process.env.RAILWAY_TCP_PROXY_PORT || 8000);
+if (!Number.isInteger(publicPort) || publicPort < 1 || publicPort > 65535) {
+  throw new Error(`Invalid public port: ${publicPort}`);
+}
 function startCore() {
   if (coreStarted) return;
   coreStarted = true;
@@ -38,7 +45,7 @@ function startCore() {
 }
 
 // 1) website first, so Railway sees the service as healthy right away
-web.start({ startCore, coreRunning: () => coreStarted, port: process.env.PORT || 3000 });
+web.start({ startCore, coreRunning: () => coreStarted, port: publicPort });
 
 // 2) start the bot straight away when a session already exists
 let linked = false;
